@@ -169,7 +169,23 @@ int main() {
 				ssd1306_send_data(&ssd);
 				break;
 			}
+			
+			case Parking_Unavaible: {
+				char buffer[20];
+				sprintf(buffer, "VAGA %d", selected_parking);
+				int text_width = strlen(buffer) * 8;
+				int x_center = (128 - text_width) / 2;
+				ssd1306_draw_string(&ssd, buffer, x_center, 20);
+				int text_width2 = strlen("INDISPONIVEL") * 8;
+				int x_center2 = (128 - text_width2) / 2;
+				ssd1306_draw_string(&ssd, "INDISPONIVEL", x_center2, 40);
+				ssd1306_send_data(&ssd);
+				play_tone(BUZZER_01, BUZZER_FREQUENCY, 1000);
 
+				screen_state = Parking_Selection;
+				break;
+			}
+			
 			default:
 				break;
 		}
