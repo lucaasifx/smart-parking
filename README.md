@@ -23,14 +23,21 @@ buzzers e telas OLED criamos um simulador interativo que reproduz o funcionament
 - Vaga Confirmada: A vaga é reservada e marcada como ocupada.
 - Liberação de Vaga: Ao sair, a vaga é automaticamente liberada para outro usuário.
 
+# Requisitos 🛠️
+- Kit de Desenvolvimento BitDogLab 🖥️
+- VS Code com as extensões:
+  - ```C/C++ Extension Pack```
+  - ```**Raspberry Pi Pico (sdk 2.1.0)**```
+
 # Como Rodar o Projeto 🚀
 1. Clone o repositório
 ```bash
   git clone https://github.com/lucaasifx/smart-parking.git
 ```
-2. Compile o código para o Raspberry Pi Pico W.
-3. Suba o binário gerado para o Pico e reinicie.
-4. Aproveite a experiência!
+2. Certifique-se de possuir a extensão Raspberry Pi Pico
+3. Compile o código para o Raspberry Pi Pico W.
+4. Suba o binário gerado para o Pico e reinicie.
+5. Aproveite a experiência!
 
 # Contribuição 🤝
 Quer melhorar o Smart Parking System? Sinta-se à vontade para enviar pull requests e sugerir melhorias! 💡
