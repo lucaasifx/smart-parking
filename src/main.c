@@ -200,7 +200,47 @@ int main() {
 				screen_state = Parking_Confirm;
 				break;
 			}
-			
+			case Parking_Confirm: {
+				// text
+				int text_width = strlen("SELECIONAR VAGA") * 8;
+				int x_center = (128 - text_width) / 2;
+				ssd1306_draw_string(&ssd, "SELECIONAR VAGA", x_center, 10);
+
+				text_width = strlen("SIM") * 8;
+				x_center = (128 - text_width) / 2;
+				ssd1306_draw_string(&ssd, "SIM", x_center, 26);
+
+				text_width = strlen("NAO") * 8;
+				x_center = (128 - text_width) / 2;
+				ssd1306_draw_string(&ssd, "NAO", x_center, 42);
+
+				
+				//option select
+				static bool opc = true;
+				// captura o movimento do joystick
+				if(vry_value < CENTER_JS - DEAD_ZONE || vry_value > CENTER_JS + DEAD_ZONE) {
+					opc = !opc;
+					sleep_ms(200);
+				}
+				// começa em SIM
+				uint8_t y = (!opc * 16) + 20; // Cada quadrado tem 16 pixels de altura
+				ssd1306_rect(&ssd, y, 0, ssd.width - 1, 16, true, false);
+				ssd1306_send_data(&ssd);
+
+				// ao pressionar o botao A
+				if(confirm_parking_space) {
+					if(opc) {
+						play_tone(BUZZER_01, BUZZER_FREQUENCY, 1000);
+						screen_state = Parking_Confirmed;
+					}
+					else {
+						play_tone(BUZZER_01, BUZZER_FREQUENCY, 100);
+						screen_state = Parking_Selection;
+					}
+					confirm_parking_space = false;
+				}
+				break;
+			}
 			default:
 				break;
 		}
