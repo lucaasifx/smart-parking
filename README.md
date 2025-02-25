@@ -39,6 +39,12 @@ buzzers e telas OLED criamos um simulador interativo que reproduz o funcionament
 4. Coloque a BitDogLab no modo BOOTSELL e carregue o software.
 5. Aproveite a experiência!
 
+# 🎥 Demonstração
+
+- 📌 Um vídeo de demonstração foi gravado, apresentando:
+  - ✅ Explicação das funcionalidades.
+  - ✅ Execução do código na placa BitDogLab.
+  - 🔗 [Acesse o vídeo de demonstração](https://www.youtube.com/watch?v=4jkKNybX-7o)
 # Contribuição 🤝
 Quer melhorar o Smart Parking System? Sinta-se à vontade para enviar pull requests e sugerir melhorias! 💡
 # 
