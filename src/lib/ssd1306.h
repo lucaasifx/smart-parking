@@ -11,12 +11,15 @@ enum ScreenState{
   Parking_Avaible,
   Parking_Confirmation,
   Parking_Confirmed,
-  Parking_Space_Leave
+  Parking_Space_Leave,
+  Parking_Init_Screen
 };
 
 extern volatile uint8_t selected_parking;
 extern volatile enum ScreenState screen_state;
 extern volatile bool confirm_parking_space;
+extern uint8_t border_len;
+
 typedef enum {
   SET_CONTRAST = 0x81,
   SET_ENTIRE_ON = 0xA4,
@@ -65,3 +68,4 @@ void ssd1306_vline(ssd1306_t *ssd, uint8_t x, uint8_t y0, uint8_t y1, bool value
 void ssd1306_draw_char(ssd1306_t *ssd, char c, uint8_t x, uint8_t y);
 void ssd1306_draw_string(ssd1306_t *ssd, const char *str, uint8_t x, uint8_t y);
 void draw_border(ssd1306_t *ssd);
+void draw_screen_border(ssd1306_t *ssd, uint8_t border_thickness);

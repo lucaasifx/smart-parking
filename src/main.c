@@ -18,7 +18,7 @@
 #include "lib/ssd1306.h"
 #include "interrupt.h"
 
-// *******************************************************
+// ************************ MACROS ***********************
 
 #define BUZZER_FREQUENCY 784
 #define INITIAL_AVAIBLE_PARKING_SPACES 8
@@ -116,6 +116,37 @@ int main() {
         uint16_t vry_value = joystick_read_value(VRY_PIN);
 
 		switch (screen_state){
+			case Parking_Init_Screen: {
+				// animação inicial da aplicação
+				sleep_ms(500);
+				int text_width = strlen("SMART PARKING") * 8;
+				int x_center = (128 - text_width) / 2;
+				border_len = 2;
+
+				ssd1306_draw_string(&ssd, "SMART PARKING", x_center, 30);
+				draw_screen_border(&ssd, border_len);
+				ssd1306_send_data(&ssd);
+				play_tone(BUZZER_01, BUZZER_FREQUENCY, 100);
+
+				ssd1306_fill(&ssd, false);
+				sleep_ms(500);
+
+				ssd1306_draw_string(&ssd, "SMART PARKING", x_center, 30);
+				ssd1306_send_data(&ssd);
+				play_tone(BUZZER_01, BUZZER_FREQUENCY, 100);
+
+				ssd1306_fill(&ssd, false);
+				sleep_ms(500);
+
+				ssd1306_draw_string(&ssd, "SMART PARKING", x_center, 30);
+				draw_screen_border(&ssd, border_len);
+				ssd1306_send_data(&ssd);
+				play_tone(BUZZER_01, BUZZER_FREQUENCY, 100);
+				sleep_ms(500);
+
+				screen_state = Parking_Selection;
+				break;
+			}
 			case Parking_Selection: {
 				// move pra baixo
 				if(vry_value < CENTER_JS - DEAD_ZONE) {

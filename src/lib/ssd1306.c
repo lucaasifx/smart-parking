@@ -6,8 +6,10 @@ volatile uint8_t parking_option = 0;
 
 // inicia na seleção de vaga
 volatile uint8_t selected_parking = 1;
-volatile enum ScreenState screen_state = Parking_Selection;
+volatile enum ScreenState screen_state = Parking_Init_Screen;
 volatile bool confirm_parking_space = false;
+
+uint8_t border_len = 0;
 
 void ssd1306_init(ssd1306_t *ssd, uint8_t width, uint8_t height, bool external_vcc, uint8_t address, i2c_inst_t *i2c) {
   ssd->width = width;
@@ -214,4 +216,24 @@ void draw_border(ssd1306_t *ssd) {
 void draw_confirm_border(ssd1306_t *ssd) {
 	uint8_t y = parking_option * 16; // Cada quadrado tem 16 pixels de altura
     ssd1306_rect(ssd, y, 0, ssd->width - 1, 16, true, false);
+}
+
+void draw_screen_border(ssd1306_t *ssd, uint8_t border_thickness) {
+	// nao desenha nada
+	if(!border_len)
+		return;
+  	// Desenha a borda superior e inferior
+  	for(uint8_t i = 0; i < border_thickness; i++) {
+		for (uint8_t x = 0; x < WIDTH; x++) {
+    		ssd1306_pixel(ssd, x, i, true); // Linha superior
+        	ssd1306_pixel(ssd, x, HEIGHT - 1 - i, true); // Linha inferior
+    	}
+  	}
+  	// Desenha a borda esquerda e direita
+  	for(uint8_t i = 0; i < border_thickness; i++) {
+    	for (uint8_t y = 0; y < HEIGHT; y++) {
+        	ssd1306_pixel(ssd, i, y, true); // Coluna esquerda
+        	ssd1306_pixel(ssd, WIDTH - 1 - i, y, true); // Coluna direita
+      	}
+	}
 }
