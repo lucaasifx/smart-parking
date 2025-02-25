@@ -5,8 +5,17 @@
 #define WIDTH 128
 #define HEIGHT 64
 
+enum ScreenState{
+  Parking_Selection = 1,
+  Parking_Unavaible,
+  Parking_Avaible,
+  Parking_Confirm,
+  Parking_Confirmed
+};
 
-
+extern volatile uint8_t selected_parking;
+extern volatile enum ScreenState screen_state;
+extern volatile bool confirm_parking_space;
 typedef enum {
   SET_CONTRAST = 0x81,
   SET_ENTIRE_ON = 0xA4,
@@ -38,7 +47,7 @@ typedef struct {
 
 
 extern ssd1306_t ssd;
-extern volatile uint8_t border_len;
+extern volatile uint8_t parking_option;
 
 
 void ssd1306_init(ssd1306_t *ssd, uint8_t width, uint8_t height, bool external_vcc, uint8_t address, i2c_inst_t *i2c);
@@ -54,4 +63,4 @@ void ssd1306_hline(ssd1306_t *ssd, uint8_t x0, uint8_t x1, uint8_t y, bool value
 void ssd1306_vline(ssd1306_t *ssd, uint8_t x, uint8_t y0, uint8_t y1, bool value);
 void ssd1306_draw_char(ssd1306_t *ssd, char c, uint8_t x, uint8_t y);
 void ssd1306_draw_string(ssd1306_t *ssd, const char *str, uint8_t x, uint8_t y);
-void draw_border(ssd1306_t *ssd, uint8_t border_thickness);
+void draw_border(ssd1306_t *ssd);

@@ -29,8 +29,8 @@ uint32_t urgb_u32(uint8_t r, uint8_t g, uint8_t b) {
 }
 
 void set_matrix() {
-    uint32_t avaible = urgb_u32(0, 1, 0);
-    uint32_t unavaible = urgb_u32(1, 0, 0);
+    uint32_t avaible = urgb_u32(0, GREEN_INTENSITY, 0);
+    uint32_t unavaible = urgb_u32(RED_INTENSITY, 0, 0);
 
     // Define todos os LEDs com a cor especificada
     for (int i = 0; i < MATRIX_LEN; i++) {
@@ -41,10 +41,10 @@ void set_matrix() {
     }
 }
 
-void set_led(int pos) {
+void set_led(int pos, bool state) {
 	if(pos == -1)
 		return;
-	led_buffer[pos] = true;
+	led_buffer[pos] = state;
 }
 
 int get_index(int position) {
@@ -78,3 +78,8 @@ void clear_matrix() {
         put_pixel(0);
     }
 }
+
+bool get_state(int index) {
+    return led_buffer[index];
+}
+
