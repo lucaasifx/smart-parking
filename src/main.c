@@ -230,7 +230,6 @@ int main() {
 				// ao pressionar o botao A
 				if(confirm_parking_space) {
 					if(opc) {
-						play_tone(BUZZER_01, BUZZER_FREQUENCY, 1000);
 						screen_state = Parking_Confirmed;
 					}
 					else {
@@ -239,6 +238,31 @@ int main() {
 					}
 					confirm_parking_space = false;
 				}
+				break;
+			}
+			case Parking_Confirmed: {
+				int text_width = strlen("VAGA CONFIRMADA") * 8;
+				int x_center = (128 - text_width) / 2;
+				ssd1306_draw_string(&ssd, "VAGA CONFIRMADA", x_center, 10);
+
+				text_width = strlen("DIRIJA ATE") * 8;
+				x_center = (128 - text_width) / 2;
+				ssd1306_draw_string(&ssd, "DIRIJA ATE", x_center, 30);
+
+				char buffer[20];
+				sprintf(buffer, "A VAGA %d", selected_parking);
+				text_width = strlen(buffer) * 8;
+				x_center = (128 - text_width) / 2;
+				ssd1306_draw_string(&ssd, buffer, x_center, 50);
+				ssd1306_send_data(&ssd);
+
+				play_tone(BUZZER_01, BUZZER_FREQUENCY, 1000);
+
+				// posiciona a vaga como ocupada
+				set_led(get_index(selected_parking), false);
+				set_matrix();
+				
+				screen_state = Parking_Selection;
 				break;
 			}
 			default:

@@ -5,7 +5,7 @@ ssd1306_t ssd;
 volatile uint8_t parking_option = 0;
 
 // inicia na seleção de vaga
-volatile uint8_t selected_parking = 0;
+volatile uint8_t selected_parking = 1;
 volatile enum ScreenState screen_state = Parking_Selection;
 volatile bool confirm_parking_space = false;
 
