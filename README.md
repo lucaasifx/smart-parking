@@ -35,8 +35,8 @@ buzzers e telas OLED criamos um simulador interativo que reproduz o funcionament
   git clone https://github.com/lucaasifx/smart-parking.git
 ```
 2. Certifique-se de possuir a extensão Raspberry Pi Pico
-3. Compile o código para o Raspberry Pi Pico W.
-4. Suba o binário gerado para o Pico e reinicie.
+3. Compile o projeto.
+4. Coloque a BitDogLab no modo BOOTSELL e carregue o software.
 5. Aproveite a experiência!
 
 # Contribuição 🤝
