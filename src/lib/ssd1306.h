@@ -9,8 +9,9 @@ enum ScreenState{
   Parking_Selection = 1,
   Parking_Unavaible,
   Parking_Avaible,
-  Parking_Confirm,
-  Parking_Confirmed
+  Parking_Confirmation,
+  Parking_Confirmed,
+  Parking_Space_Leave
 };
 
 extern volatile uint8_t selected_parking;

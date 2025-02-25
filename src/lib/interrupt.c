@@ -37,12 +37,14 @@ void gpio_irq_handler(uint gpio, uint32_t events) {
                 else
                     screen_state = Parking_Unavaible;
             }
-            else if(screen_state == Parking_Confirm) {
+            else if(screen_state == Parking_Confirmation)
                 confirm_parking_space = true;
-            }
         }
 
         if(gpio == BUTTON_B) {
+            // se a vaga estiver ocupada
+            if(!get_state(get_index(selected_parking)))
+                screen_state = Parking_Space_Leave;
         }
 
     }

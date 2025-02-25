@@ -84,6 +84,7 @@ int main() {
 	// reset do programa com o botão do joystick
 	init_button_with_interrupt(JOYSTICK_BUTTON, GPIO_IRQ_EDGE_FALL, true);
 	init_button_with_interrupt(BUTTON_A, GPIO_IRQ_EDGE_FALL, true);
+	init_button_with_interrupt(BUTTON_B, GPIO_IRQ_EDGE_FALL, true);
 	pwm_init_buzzer(BUZZER_01);
 	// o estacionamento inicia preenchido de vermelho
 	set_matrix();
@@ -197,10 +198,10 @@ int main() {
 				ssd1306_send_data(&ssd);
 				play_tone(BUZZER_01, BUZZER_FREQUENCY, 100);
 				sleep_ms(900);
-				screen_state = Parking_Confirm;
+				screen_state = Parking_Confirmation;
 				break;
 			}
-			case Parking_Confirm: {
+			case Parking_Confirmation: {
 				// text
 				int text_width = strlen("SELECIONAR VAGA") * 8;
 				int x_center = (128 - text_width) / 2;
@@ -220,6 +221,7 @@ int main() {
 				// captura o movimento do joystick
 				if(vry_value < CENTER_JS - DEAD_ZONE || vry_value > CENTER_JS + DEAD_ZONE) {
 					opc = !opc;
+					play_tone(BUZZER_01, BUZZER_FREQUENCY, 100);
 					sleep_ms(200);
 				}
 				// começa em SIM
@@ -229,9 +231,8 @@ int main() {
 
 				// ao pressionar o botao A
 				if(confirm_parking_space) {
-					if(opc) {
+					if(opc)
 						screen_state = Parking_Confirmed;
-					}
 					else {
 						play_tone(BUZZER_01, BUZZER_FREQUENCY, 100);
 						screen_state = Parking_Selection;
@@ -261,8 +262,27 @@ int main() {
 				// posiciona a vaga como ocupada
 				set_led(get_index(selected_parking), false);
 				set_matrix();
-				
+
 				screen_state = Parking_Selection;
+				break;
+			}
+			case Parking_Space_Leave: {
+				int text_width = strlen("VAGA LIBERADA") * 8;
+				int x_center = (128 - text_width) / 2;
+				ssd1306_draw_string(&ssd, "VAGA LIBERADA", x_center, 20);
+
+				text_width = strlen("VOLTE SEMPRE") * 8;
+				x_center = (128 - text_width) / 2;
+				ssd1306_draw_string(&ssd, "VOLTE SEMPRE", x_center, 40);
+				ssd1306_send_data(&ssd);
+				play_tone(BUZZER_01, BUZZER_FREQUENCY, 1000);
+
+				// posiciona a vaga como ocupada
+				set_led(get_index(selected_parking), true);
+				set_matrix();
+
+				screen_state = Parking_Selection;
+
 				break;
 			}
 			default:
