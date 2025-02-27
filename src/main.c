@@ -65,22 +65,19 @@ int main() {
 	init_matrix();
 
 	adc_init();
-    adc_gpio_init(VRY_PIN);
-
-    // Inicializa I2C
-    i2c_init(I2C_PORT, 400 * 1000);
-    gpio_set_function(I2C_SDA, GPIO_FUNC_I2C);
-    gpio_set_function(I2C_SCL, GPIO_FUNC_I2C);
-    gpio_pull_up(I2C_SDA);
-    gpio_pull_up(I2C_SCL);
-    ssd1306_init(&ssd, WIDTH, HEIGHT, false, endereco, I2C_PORT);
-    ssd1306_config(&ssd);
-    ssd1306_send_data(&ssd);
-    ssd1306_fill(&ssd, false);
-    ssd1306_send_data(&ssd);
-
-
-
+	adc_gpio_init(VRY_PIN);
+	
+	// Inicializa I2C
+	i2c_init(I2C_PORT, 400 * 1000);
+	gpio_set_function(I2C_SDA, GPIO_FUNC_I2C);
+	gpio_set_function(I2C_SCL, GPIO_FUNC_I2C);
+	gpio_pull_up(I2C_SDA);
+	gpio_pull_up(I2C_SCL);
+	ssd1306_init(&ssd, WIDTH, HEIGHT, false, endereco, I2C_PORT);
+	ssd1306_config(&ssd);
+	ssd1306_send_data(&ssd);
+	ssd1306_fill(&ssd, false);
+	ssd1306_send_data(&ssd);
 	// reset do programa com o botão do joystick
 	init_button_with_interrupt(JOYSTICK_BUTTON, GPIO_IRQ_EDGE_FALL, true);
 	init_button_with_interrupt(BUTTON_A, GPIO_IRQ_EDGE_FALL, true);
